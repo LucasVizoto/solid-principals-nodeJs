@@ -19,6 +19,28 @@ model User {
   id String @id @default(uuid()) //define que o id é uma string, é a chave primaria e o valor padrão é um uuid
   name String
   email String @unique //define que o email é unico
+  password_hash String // hashing -> criptografia no envio, sem possibilitar a descriptografação deste dados
+  created_at DateTime @default(now()) 
+
 
   @@map("users") //muda o nome da tabela no banco para que não seja igual o nome da model
+}
+
+model CheckIn{
+  id String @id @default(uuid())
+  created_at DateTime @default(now())
+  validated_at DateTime?
+
+  @@map("check_ins")
+}
+
+model Gym{
+  id String @id @default(uuid())
+  title String
+  description String? //o ? define que o campo é opcional
+  phone String?
+  latitude Decimal
+  longitude Decimal
+
+  @@map("gyms")
 }
