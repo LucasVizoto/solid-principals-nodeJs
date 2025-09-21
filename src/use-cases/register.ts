@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma.js"
+import type { UserRepository } from "@/repositories/interfaces/users-repository.js"
 import { hash } from "bcryptjs"
 
 interface RegisterUseCaseRequest{
@@ -14,20 +15,14 @@ interface RegisterUseCaseRequest{
 // dependencia diretamenteo ao inves do caso de uso instanciar a dependencia, eu recebo elas como param
 
 export class RegisterUseCase{
-    constructor(private userRepository:any){
-
-    }
+    constructor(private userRepository:UserRepository){}
 
     async execute({name, email, password }:RegisterUseCaseRequest) {
 
         const password_hash = await hash(password, 6) //numero de rounds, quantidade de vezes que vai ser um hash gerado
         //vai ser gerado um hsh do próprio hash 6 vezes
 
-        const userWithSameEmail = await prisma.user.findUnique({
-            where:{
-                email,
-            },
-        })
+        const userWithSameEmail = await this.userRepository.findByEmail(email)
 
         if (userWithSameEmail){
             throw new Error('E-mail already exists.')
