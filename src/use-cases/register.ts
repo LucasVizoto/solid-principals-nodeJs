@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma.js"
 import type { UserRepository } from "@/repositories/interfaces/users-repository.js"
 import { hash } from "bcryptjs"
+import { UserAlreadyExistsError } from "./errors/user-already-exists-error.js"
 
 interface RegisterUseCaseRequest{
     name: string,
@@ -25,7 +25,7 @@ export class RegisterUseCase{
         const userWithSameEmail = await this.userRepository.findByEmail(email)
 
         if (userWithSameEmail){
-            throw new Error('E-mail already exists.')
+            throw new UserAlreadyExistsError()
         }
 
         await this.userRepository.create({
