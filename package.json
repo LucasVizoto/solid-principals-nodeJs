@@ -5,10 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
     "start": "node build/server.cjs",
-    "build": "tsup src/server.ts --out-dir build"
+    "build": "tsup src/server.ts --out-dir build",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +20,9 @@
     "prisma": "6.16.1",
     "tsup": "8.5.0",
     "tsx": "4.20.5",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.2.4"
   },
   "dependencies": {
     "@prisma/client": "6.16.1",
