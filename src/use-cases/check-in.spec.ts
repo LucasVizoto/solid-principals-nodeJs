@@ -47,7 +47,7 @@ describe('Register Use-Case', () =>{
         expect(checkIn.id).toEqual(expect.any(String))
         //aqui eu digo basicamente que eu espero que o user id seja igual a qualquer string
     })
-
+    
     //fluxo de tdd 
     // red - green - refactor
     //eu tenho um erro ao tentar relizar o teste na aplicaçã0 (RED)
@@ -100,5 +100,30 @@ describe('Register Use-Case', () =>{
         //significa que o usuario nao pode fazer check-in duas vezes no mesmo dia
     })
 
+    it('should not be able to check in on distant gym', async () =>{
 
+
+        gymsRepository.items.push({
+            id: 'gym-02',
+            title: 'JavaScript Gym',
+            description: '',
+            phone: '',
+            latitude: new Decimal(-20.533949),
+            longitude: new Decimal(-47.3765211)
+        })
+
+        //vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0)) //aqui eu estou setando a data do relogio falso para 20 de janeiro de 2022 as 8 horas da manha
+        
+        // ,
+
+        await expect(()=>
+            sut.execute({
+                gymId: 'gym-2',
+                userId: 'user-1',
+                userLatitude: -20.5107557,
+                userLongitude: -47.0061818,
+            }),
+        ).rejects.toBeInstanceOf(Error)
+
+    })
 })
