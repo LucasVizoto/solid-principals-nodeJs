@@ -14,7 +14,7 @@ describe('Register Use-Case', () =>{
         sut = new RegisterUseCase(userRepository)
     })
 
-    it('should hash user password upon registration', async () =>{
+    it('should be able to register', async () =>{
 
         const {user} = await sut.execute({
             name: 'Jhon Doe',

@@ -3,25 +3,27 @@ import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-c
 import { InMemoryGymRepository } from '@/repositories/in-memory/in-memory-gyms-repository.js'
 import { CheckInUseCase } from './check-in.js'
 import { Decimal } from '@prisma/client/runtime/library'
+import { MaxDistanceError } from './errors/max-distance-error.js'
+import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error.js'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let gymsRepository: InMemoryGymRepository
 let sut: CheckInUseCase
 
-describe('Register Use-Case', () =>{
+describe('CheckIn Use-Case', () =>{
     
-    beforeEach(()=>{
+    beforeEach(async ()=>{
         checkInsRepository = new InMemoryCheckInsRepository()
         gymsRepository = new InMemoryGymRepository()
         sut = new CheckInUseCase(checkInsRepository, gymsRepository)
         
-        gymsRepository.items.push({
+        await gymsRepository.create({
             id: 'gym-1',
             title: 'JavaScript Gym',
             description: '',
             phone: '',
-            latitude: new Decimal(0),
-            longitude: new Decimal(0)
+            latitude: 0,
+            longitude: 0
         })
 
         vi.useFakeTimers() //aqui eu estou falando para o vitest usar um relogio falso
@@ -70,7 +72,7 @@ describe('Register Use-Case', () =>{
             userId: 'user-1',
             userLatitude: 0,
             userLongitude: 0,
-        })).rejects.toBeInstanceOf(Error)
+        })).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
         //estou aguardando que a promisse rejeitasse e levantasse um erro, que basicament
         //significa que o usuario nao pode fazer check-in duas vezes no mesmo dia
     })
