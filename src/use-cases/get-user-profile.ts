@@ -1,4 +1,4 @@
-import type { UserRepository } from "@/repositories/interfaces/users-repository.js";
+import type { UserRepository } from "@/repositories/users-repository.js";
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error.js";
 import { compare } from "bcryptjs";
 import { ParseStatus } from "zod/v3";
