@@ -3,7 +3,6 @@ import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-c
 import { InMemoryGymRepository } from '@/repositories/in-memory/in-memory-gyms-repository.js'
 import { CheckInUseCase } from './check-in.js'
 import { Decimal } from '@prisma/client/runtime/library'
-import { MaxDistanceError } from './errors/max-distance-error.js'
 import { MaxNumberOfCheckInsError } from './errors/max-number-of-check-ins-error.js'
 
 let checkInsRepository: InMemoryCheckInsRepository
