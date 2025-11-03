@@ -7,7 +7,7 @@ import { refresh } from "./refresh.js";
 
 export async function usersRoutes(app: FastifyInstance){
     app.post('/users', register)
-    app.post('/sessios', authenticate)
+    app.post('/sessions', authenticate)
     
     /** Token */
     app.patch('/token/refresh', refresh)

@@ -16,7 +16,7 @@ describe('Search Gym (e2e)', () =>{
 
     it('should be able to search Gyms by title', async ()=>{
 
-         const {token} = await createAndAuthenticateUser(app)
+         const {token} = await createAndAuthenticateUser(app, true)
 
         await request(app.server)
         .get('/gyms')
@@ -46,7 +46,7 @@ describe('Search Gym (e2e)', () =>{
             query: 'JavaScript',
         })
 
-        expect(response.statusCode).toEqual(201)
+        expect(response.statusCode).toEqual(200)
         expect(response.body.gyms).toHaveLength(1)
         expect(response.body.gyms).toEqual([
             expect.objectContaining({title: 'JavaScript Gym'}),

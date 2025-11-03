@@ -16,7 +16,7 @@ describe('Nearby Gym (e2e)', () =>{
 
     it('should be able to list nearby Gyms', async ()=>{
 
-         const {token} = await createAndAuthenticateUser(app)
+         const {token} = await createAndAuthenticateUser(app, true)
 
         await request(app.server)
         .get('/gyms')
@@ -47,7 +47,7 @@ describe('Nearby Gym (e2e)', () =>{
             longitude: -47.0061818,
         })
 
-        expect(response.statusCode).toEqual(201)
+        expect(response.statusCode).toEqual(200)
         expect(response.body.gyms).toHaveLength(1)
         expect(response.body.gyms).toEqual([
             expect.objectContaining({title: 'JavaScript Gym'}),

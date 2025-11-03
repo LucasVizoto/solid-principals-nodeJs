@@ -14,12 +14,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role{
+  ADMIN
+  MEMBER
+}
 
 model User {
   id String @id @default(uuid()) //define que o id é uma string, é a chave primaria e o valor padrão é um uuid
   name String
   email String @unique //define que o email é unico
   password_hash String // hashing -> criptografia no envio, sem possibilitar a descriptografação deste dados
+  role Role @default(MEMBER)
   created_at DateTime @default(now()) 
   
   
