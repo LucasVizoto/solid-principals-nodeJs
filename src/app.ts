@@ -34,6 +34,8 @@ app.setErrorHandler((error, _request, reply)=>{
     }
     if (env.NODE_ENV !== "production"){
         console.error(error)
+
+        return reply.status(403).send({message: error.message})
     } else{
         // TODO: Here we shoul log to an external tool like Datadog
     }
