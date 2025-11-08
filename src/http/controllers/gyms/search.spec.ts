@@ -16,10 +16,10 @@ describe('Search Gym (e2e)', () =>{
 
     it('should be able to search Gyms by title', async ()=>{
 
-         const {token} = await createAndAuthenticateUser(app, true)
+        const {token} = await createAndAuthenticateUser(app, true)
 
         await request(app.server)
-        .get('/gyms')
+        .post('/gyms')
         .set('Authorization', `Bearer ${token}`)
         .send({
             title: 'JavaScript Gym',
@@ -29,7 +29,7 @@ describe('Search Gym (e2e)', () =>{
             longitude: -47.0061818
         })
         await request(app.server)
-        .get('/gyms')
+        .post('/gyms')
         .set('Authorization', `Bearer ${token}`)
         .send({
             title: 'Python Gym',
