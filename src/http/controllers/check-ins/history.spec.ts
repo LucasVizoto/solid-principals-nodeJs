@@ -46,10 +46,7 @@ describe('Check-In History (e2e)', () =>{
         const response = await request(app.server)
         .get('/check-ins/history')
         .set('Authorization', `Bearer ${token}`)
-        .send({
-            latitude: -20.5107557,
-            longitude: -47.0061818
-        })
+        .send()
 
 
 
