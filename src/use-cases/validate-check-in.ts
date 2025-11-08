@@ -1,6 +1,6 @@
 
 import type { CheckIn } from "generated/prisma/index.js";
-import type { CheckInsRepository } from "@/repositories/prisma/check-ins-repository.js";
+import type { PrismaCheckInsRepository } from "@/repositories/prisma/prisma-check-ins-repository.js";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error.js";
 import dayjs from "dayjs";
 import { LateCheckInValidationError } from "./errors/late-checkIn-validation-error.js";
@@ -15,7 +15,7 @@ interface ValidateCheckInUseCaseResponse {
 
 export class ValidateCheckInUseCase{
     constructor(
-        private checkInsRepository: CheckInsRepository,
+        private checkInsRepository: PrismaCheckInsRepository,
     ) {}
 
     async execute({checkInId}: ValidateCheckInUseCaseRequest): Promise<ValidateCheckInUseCaseResponse>{
